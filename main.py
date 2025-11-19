@@ -5,7 +5,7 @@ import Computing as comp
 
 def main():
     params = 1
-    mg = MG.MatrixGenerator(params)
+    mg = MG.MatrixGenerator()
     sg = SR.ShowResults(params)
     res = comp.Computing(params)
     
