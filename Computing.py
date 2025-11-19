@@ -7,7 +7,7 @@ class Computing:
         self.__params = matirx
     
     @accessify.private
-    def FindMaxInColumnWhithExclitedRows(self, column_id, excluded_rows):
+    def FindMaxInColumnWithExclitedRows(self, column_id, excluded_rows):
         matrix = np.copy(self.__params)
         col = matrix[:, column_id]
 
@@ -26,7 +26,7 @@ class Computing:
         return max_val, mat_max_id
 
     @accessify.private
-    def FindMinInColumnWhithExclitedRows(self, column_id, excluded_rows):
+    def FindMinInColumnWithExclitedRows(self, column_id, excluded_rows):
         matrix = np.copy(self.__params)
         col = matrix[:, column_id]
 
@@ -61,7 +61,7 @@ class Computing:
         assigned_rows = set()
 
         for i in range(shapes[0]):
-            min_val, row = self.FindMinInColumnWhithExclitedRows(i, assigned_rows)
+            min_val, row = self.FindMinInColumnWithExclitedRows(i, assigned_rows)
             cost += min_val
             assigned_rows.add(row)
         
@@ -73,7 +73,7 @@ class Computing:
         assigned_rows = set()
 
         for i in range(shapes[1]):
-            max_val, row = self.FindMaxInColumnWhithExclitedRows(i, assigned_rows)
+            max_val, row = self.FindMaxInColumnWithExclitedRows(i, assigned_rows)
             if row != -1:
                 cost += max_val
                 assigned_rows.add(row)
@@ -88,13 +88,13 @@ class Computing:
 
         for i in range(shapes[1]):
             if i < x:
-                val, row = self.FindMaxInColumnWhithExclitedRows(i, assigned_rows)
+                val, row = self.FindMaxInColumnWithExclitedRows(i, assigned_rows)
                 if row != -1:
                     cost += val
                     assigned_rows.add(row)
 
             else:
-                val, row = self.FindMinInColumnWhithExclitedRows(i, assigned_rows)
+                val, row = self.FindMinInColumnWithExclitedRows(i, assigned_rows)
                 if row != -1:
                     cost += val
                     assigned_rows.add(row)
@@ -108,13 +108,13 @@ class Computing:
 
         for i in range(shapes[1]):
             if i < x:
-                val, row = self.FindMinInColumnWhithExclitedRows(i, assigned_rows)
+                val, row = self.FindMinInColumnWithExclitedRows(i, assigned_rows)
                 if row != -1:
                     cost += val
                     assigned_rows.add(row)
 
             else:
-                val, row = self.FindMaxInColumnWhithExclitedRows(i, assigned_rows)
+                val, row = self.FindMaxInColumnWithExclitedRows(i, assigned_rows)
                 if row != -1:
                     cost += val
                     assigned_rows.add(row)
