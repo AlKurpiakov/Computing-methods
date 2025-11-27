@@ -37,9 +37,6 @@ class Computing:
         avail_idx = np.nonzero(mask)[0]
         filtered_columns = col[mask]
 
-        k = min(k, len(filtered_columns))
-
-
         if k == 1:
             min_pos = int(np.argmin(filtered_columns))
             return filtered_columns[min_pos], int(avail_idx[min_pos])
@@ -153,14 +150,14 @@ class Computing:
 
         return cost, np.array(values)
 
-    def TkG_MethodX(self, x, k):
+    def TkG_MethodX(self, k, x):
         cost = 0
         shapes = self.__params.shape
         assigned_rows = set()
         values = []
 
         for i in range(shapes[1]):
-            if i < x:
+            if (i < x) and (i + k < shapes[1]):
                 val, row = self.FindKMinInColumnWithExclitedRows(i, assigned_rows, k)
                 if row != -1:
                     cost += val
