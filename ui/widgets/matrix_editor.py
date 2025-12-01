@@ -110,7 +110,7 @@ class MatrixEditorPanel(QWidget):
         # Используем MatrixGenerator с параметрами по умолчанию, но n=n и v=n (квадратная матрица для редактора)
         
         generator = MatrixGenerator.MatrixGenerator(n=n, v=n)
-        matrix = generator.GenerateCMatrix()
+        matrix = generator.GenerateDummyMatrix()
         
         for i in range(n):
             for j in range(n):

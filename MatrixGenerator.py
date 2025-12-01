@@ -58,3 +58,7 @@ class MatrixGenerator:
             c_matrix[:, j] = c_matrix[:, j-1] * b_matrix[:, j-1]
         
         return c_matrix
+    
+    def GenerateDummyMatrix(self):
+        dummy_matrix = np.array(np.random.uniform(200, 200, size=(self.n, self.n)))
+        return dummy_matrix
