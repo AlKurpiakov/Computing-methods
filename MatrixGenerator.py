@@ -4,7 +4,7 @@ from accessify import private
 
 class MatrixGenerator:
     def __init__(self, n: int = 10, v: int = 7, a_min: float = 0.12, a_max: float = 0.22, beta1: float = 0.85, beta2: float = 1.0):
-        self._validate_parameters(n, v, a_min, a_max, beta1, beta2)
+        self.__validate_parameters(n, v, a_min, a_max, beta1, beta2)
         self.n = n
         self.v = v
         self.a_min = a_min
@@ -13,7 +13,7 @@ class MatrixGenerator:
         self.beta2 = beta2
         
     @private
-    def _validate_parameters(self, n: int, v: int, a_min: float, a_max: float, beta1: float, beta2: float):
+    def __validate_parameters(self, n: int, v: int, a_min: float, a_max: float, beta1: float, beta2: float):
         if n <= 0:
             raise ValueError("n must be more than 0")
         if v <= 20:
@@ -24,20 +24,7 @@ class MatrixGenerator:
             raise ValueError("beta1 must be less than beta2")
         if not (0.85 <= beta1 < beta2 <= 1.0):
                 raise ValueError("beta1 and beta2 must be in range [0.85, 1.0]")
-                
-    def GenerateCMatrix(self, distribution_type: str = "uniform") -> np.array:
-        a_vector, b_matrix = self.Generate_ab_Matrices(distribution_type)
         
-        n, v = b_matrix.shape
-        c_matrix = np.zeros((n, v))
-        
-        c_matrix[:, 0] = a_vector # c_i1 = a_i
-        
-        for j in range(1, v):
-            c_matrix[:, j] = c_matrix[:, j-1] * b_matrix[:, j-1]
-        
-        return c_matrix
-    
     @private
     def GenerateABMatrices(self, distribution_type: str) -> Tuple[np.array, np.array]:
         a_vector = np.array([np.random.uniform(self.a_min, self.a_max) for _ in range(self.n)])  # вектор начальной сахаристости
@@ -60,3 +47,17 @@ class MatrixGenerator:
             raise ValueError("Distribution type must be 'uniform' or 'concentrated'")
         
         return a_vector, b_matrix
+                
+    def GenerateCMatrix(self, distribution_type: str = "uniform") -> np.array:
+        a_vector, b_matrix = self.GenerateABMatrices(distribution_type)
+        
+        n, v = b_matrix.shape
+        c_matrix = np.zeros((n, v))
+        
+        c_matrix[:, 0] = a_vector # c_i1 = a_i
+        
+        for j in range(1, v):
+            c_matrix[:, j] = c_matrix[:, j-1] * b_matrix[:, j-1]
+        
+        return c_matrix
+    
